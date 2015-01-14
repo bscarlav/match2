@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Match</title>
+    <script src="//static.opentok.com/webrtc/v2.2/js/TB.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        var apiKey = '45127612';
+        var sessionId = '2_MX40NTEyNzYxMn5-MTQyMTA4OTY0MTUxM35QbGh0NHpTTUxmY1Urc2d4VkNCMjNkYWx-fg';
+        var token = 'T1==cGFydG5lcl9pZD00NTEyNzYxMiZzaWc9ODY1NjU5MTMyZjU0NGJhZTE0ZmNlM2VjYjViOTc0MWU0MjBjOWZjODpyb2xlPXB1Ymxpc2hlciZzZXNzaW9uX2lkPTJfTVg0ME5URXlOell4TW41LU1UUXlNVEE0T1RZME1UVXhNMzVRYkdoME5IcFRUVXhtWTFVcmMyZDRWa05DTWpOa1lXeC1mZyZjcmVhdGVfdGltZT0xNDIxMDg5NzIwJm5vbmNlPTAuOTkxMjgwMjM1MDUxMzM2OQ==';
+    		
+		var socket = io();
+		$(document).ready(function() {
+			  $('form').submit(function(){
+				socket.emit('chat message', $('#m').val());
+				$('#m').val('');
+				return false;
+			  });
+		});
+		 
+	
+	</script>
+    <script src="/js/match.js"></script>
+</head>
+<body>
+    <h2>Match</h2>
+	<ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+</body>
+</html>

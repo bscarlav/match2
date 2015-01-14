@@ -13,6 +13,18 @@ if (!apiKey || !apiSecret) {
 // Initialize the express app
 var app = express();
 app.use(express.static(__dirname + '/public'));
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+});
+
+http.listen(process.env.PORT || 3000, function(){
+  console.log('listening on *:3000');
+});
 
 // Initialize OpenTok
 var opentok = new OpenTok(apiKey, apiSecret);
@@ -29,7 +41,6 @@ app.get('/', function(req, res) {
   var sessionId = app.get('sessionId'),
       // generate a fresh token for this client
       token = opentok.generateToken(sessionId);
-
   res.render('index.ejs', {
     apiKey: apiKey,
     sessionId: sessionId,
@@ -39,7 +50,5 @@ app.get('/', function(req, res) {
 
 // Start the express app
 function init() {
-  app.listen(process.env.PORT || 3000, function() {
-    console.log('You\'re app is now ready at http://localhost:3000/');
-  });
+    //var server = app.listen(process.env.PORT || 3000);
 }
